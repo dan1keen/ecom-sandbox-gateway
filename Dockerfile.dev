@@ -1,0 +1,22 @@
+FROM golang:1.26-alpine
+
+WORKDIR /app/gateway
+
+# Устанавливаем git и bash
+RUN apk add --no-cache git bash curl
+
+# Устанавливаем Air (hot-reload)
+RUN go install github.com/air-verse/air@latest
+
+# Копируем модули, чтобы использовать кэш Docker
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Копируем весь код (для первого запуска)
+COPY . .
+
+# Экспонируем порт для dev
+EXPOSE 8080
+
+# Запуск Air
+CMD ["air"]
