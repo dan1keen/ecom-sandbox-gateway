@@ -39,7 +39,13 @@ func JWT(secret string) gin.HandlerFunc {
 			return
 		}
 
-		rawID, ok := claims["user_id"]
+		authUser, ok := claims["authUser"].(map[string]interface{})
+		if !ok {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Missing auth user data"})
+			return
+		}
+
+		rawID, ok := authUser["user_id"]
 		if !ok {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Missing user id"})
 			return

@@ -31,8 +31,10 @@ func registerHealthRoutes(r *gin.Engine) {
 }
 
 func registerProxyRoutes(r *gin.Engine, cfg *config.Config) {
+	authProxy := handlers.NewProxyHandler(cfg.AuthServiceURL)
+	r.POST("/auth/login", middleware.Unauthenticated(cfg.JWTSecret), authProxy.Login())
+	r.POST("/auth/register", middleware.Unauthenticated(cfg.JWTSecret), authProxy.Register())
+
 	userProxy := handlers.NewProxyHandler(cfg.UserServiceURL)
-	r.POST("/auth/register", middleware.Unauthenticated(cfg.JWTSecret), userProxy.Register())
-	r.POST("/auth/login", middleware.Unauthenticated(cfg.JWTSecret), userProxy.Login())
 	r.Any("users/*proxyPath", middleware.JWT(cfg.JWTSecret), userProxy.Handle())
 }

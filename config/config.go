@@ -12,6 +12,7 @@ type Config struct {
 	IdleTimeout     time.Duration
 	ShutdownTimeout time.Duration
 	Env             string
+	AuthServiceURL  string
 	UserServiceURL  string
 	JWTSecret       string
 }
@@ -25,6 +26,7 @@ func LoadConfig() *Config {
 		IdleTimeout:     120 * time.Second,
 		ShutdownTimeout: 10 * time.Second,
 		Env:             getEnv("ENV", "development"),
+		AuthServiceURL:  getEnv("AUTH_SERVICE_URL", ""),
 		UserServiceURL:  getEnv("USER_SERVICE_URL", ""),
 		JWTSecret:       getEnv("JWT_SECRET", ""),
 	}
