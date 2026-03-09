@@ -1,10 +1,10 @@
 package http
 
 import (
+	"gateway/internal/config"
 	"gateway/internal/http/middleware"
 	"net/http"
 
-	"gateway/config"
 	"gateway/internal/http/handlers"
 
 	"github.com/gin-gonic/gin"

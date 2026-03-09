@@ -3,7 +3,7 @@ package server
 import (
 	"context"
 	"errors"
-	"gateway/config"
+	"gateway/internal/config"
 	"log"
 	"net/http"
 	"os"

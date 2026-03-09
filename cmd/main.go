@@ -1,9 +1,9 @@
 package main
 
 import (
-	"gateway/config"
+	"gateway/internal/bootstrap"
+	"gateway/internal/config"
 	internalHttp "gateway/internal/http"
-	"gateway/server"
 )
 
 func main() {
